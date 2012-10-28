@@ -61,7 +61,6 @@ func primes (number uint64, primes_ch chan<- []uint64) {
     go generate(ch) // Start generate() as a subprocess.
 
     primes := []uint64 {}
-    counter := 0
 
     for {
         prime := <-ch
@@ -71,12 +70,6 @@ func primes (number uint64, primes_ch chan<- []uint64) {
         }
 
         primes = append(primes, prime)
-        if counter == 50 {
-            counter = 0
-            fmt.Println("Latest prime: ", prime)
-        } else {
-            counter++
-        }
 
         ch1 := make(chan uint64)
         go filter(ch, ch1, prime)
